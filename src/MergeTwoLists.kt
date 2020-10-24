@@ -17,16 +17,16 @@ class MergeTwoLists {
 		var currentL1 = l1
 		var currentL2 = l2
 		while (currentL1 != null || currentL2 != null) {
-			if (currentL1 != null) {
-				result?.next = currentL1
-				result = result?.next
-				currentL1 = currentL1.next
+
+			if (currentL1?.`val` ?: Int.MAX_VALUE < currentL2?.`val` ?: Int.MAX_VALUE) {
+				result?.next = currentL1?.`val`?.let { ListNode(it) }
+				currentL1 = currentL1?.next
+			} else {
+				result?.next = currentL2?.`val`?.let { ListNode(it) }
+				currentL2 = currentL2?.next
 			}
-			if (currentL2 != null) {
-				result?.next = currentL2
-				result = result?.next
-				currentL2 = currentL2.next
-			}
+
+			result = result?.next
 		}
 
 		return resultHead?.next
@@ -34,19 +34,19 @@ class MergeTwoLists {
 }
 
 fun main() {
-	val myLinkedList = MyLinkedList()
+	val a1 = ListNode(1)
+	val a2 = ListNode(2)
+	val a3 = ListNode(4)
+	a1.next = a2
+	a2.next = a3
 
-	myLinkedList.addAtHead(2)
-	myLinkedList.deleteAtIndex(1)
-	myLinkedList.addAtHead(2)
-	myLinkedList.addAtHead(7)
-	myLinkedList.addAtHead(3)
-	myLinkedList.addAtHead(2)
-	myLinkedList.addAtHead(5)
-	myLinkedList.addAtTail(5)
-	myLinkedList.get(5)
-	myLinkedList.deleteAtIndex(6)
-	myLinkedList.deleteAtIndex(4)
+	val b1 = ListNode(1)
+	val b2 = ListNode(3)
+	val b3 = ListNode(4)
+	b1.next = b2
+	b2.next = b3
+
+	val result = MergeTwoLists().mergeTwoLists(a1,b1)
 }
 
 
